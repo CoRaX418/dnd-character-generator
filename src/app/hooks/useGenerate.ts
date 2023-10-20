@@ -1,4 +1,4 @@
-import { CLASSES, MAIN_STATS, RACES, STATS } from "../consts/consts";
+import { Alignment, Background, CLASSES, MAIN_STATS, RACES, RACE_NAMES, STATS } from "../consts/consts";
 
 const getRandomInt = (max: number) => Math.floor(Math.random() * max);
 
@@ -35,16 +35,9 @@ const getRandomStat = () => {
 };
 
 export const useGenerate = () => {
-  const getName = () => {
-    return "Амогус";
-  };
-
-  const getAlignment = () => {
-    return "Нейтральный";
-  };
-
-  const getBackground = () => {
-    return "Солдат";
+  const getName = (race: RACES) => {
+    const names = RACE_NAMES[race].split(",").map(name => name.trim())
+    return names[getRandomInt(names.length) - 1]
   };
 
   const getStats = (heroClass: CLASSES) => {
@@ -68,11 +61,11 @@ export const useGenerate = () => {
   };
 
   const generate = () => {
-    const name = getName();
     const race = getRandomValue(RACES);
     const heroClass = getRandomValue(CLASSES);
-    const alignment = getAlignment();
-    const background = getBackground();
+    const alignment = getRandomValue(Alignment);
+    const background = getRandomValue(Background);
+    const name = getName(race);
 
     return {
       name,
