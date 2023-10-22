@@ -77,6 +77,24 @@ export const HomePage = () => {
           {getStatModifier(watch(STATS.Charisma))}
         </label>
       </div>
+      <div>
+        <label>
+          Черта характера
+          <textarea {...register("trate")} />
+        </label>
+        <label>
+          Идеал
+          <textarea {...register("ideal")} />
+        </label>
+        <label>
+          Привязанность
+          <textarea {...register("attachment")} />
+        </label>
+        <label>
+          Слабость
+          <textarea {...register("weakness")} />
+        </label>
+      </div>
       <button onClick={onGenerate}>Сгенерировать</button>
     </form>
   );

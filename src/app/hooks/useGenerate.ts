@@ -1,4 +1,6 @@
-import { Alignment, Background, CLASSES, MAIN_STATS, RACES, RACE_NAMES, STATS } from "../consts/consts";
+import { BACKGROUND_PERSONALIZATION, Background } from "../consts/background";
+import { Alignment, CLASSES, MAIN_STATS, STATS } from "../consts/consts";
+import { RACES, RACE_NAMES } from "../consts/race";
 
 const getRandomInt = (max: number) => Math.floor(Math.random() * max);
 
@@ -60,6 +62,21 @@ export const useGenerate = () => {
     return stats;
   };
 
+  const getPersonalization = (background: Background) => {
+    const values = BACKGROUND_PERSONALIZATION[background];
+    const trate = getRandomValue(values.trates);
+    const ideal = getRandomValue(values.ideals);
+    const attachment = getRandomValue(values.attachments);
+    const weakness = getRandomValue(values.weaknesses)
+
+    return {
+      trate,
+      ideal,
+      attachment,
+      weakness
+    }
+  }
+
   const generate = () => {
     const race = getRandomValue(RACES);
     const heroClass = getRandomValue(CLASSES);
@@ -74,6 +91,7 @@ export const useGenerate = () => {
       alignment,
       background,
       ...getStats(heroClass),
+      ...getPersonalization(background)
     };
   };
 
