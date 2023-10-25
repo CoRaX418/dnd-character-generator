@@ -92,7 +92,7 @@ export const HomePage = () => {
         </label>
         <label>
           Слабость
-          <textarea {...register("weakness")} />
+          <textarea {...register("weakness  ")} />
         </label>
       </div>
       <button onClick={onGenerate}>Сгенерировать</button>
