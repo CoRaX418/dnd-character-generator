@@ -20,18 +20,18 @@ body {
 
 label{
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap:8px
-}
-
-div{
-  display: flex;
-  gap: 8px;
+  flex-direction: column;
+  gap:4px;
+  padding: 4px;
 }
 
 form{
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+textarea{
+  min-width: 220px;
+  min-height: 150px;
 }

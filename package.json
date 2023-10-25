@@ -12,7 +12,8 @@
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "react-hook-form": "^7.47.0"
+    "react-hook-form": "^7.47.0",
+    "react-select": "^5.7.7"
   },
   "devDependencies": {
     "@types/node": "latest",
