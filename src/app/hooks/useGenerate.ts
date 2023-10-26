@@ -13,6 +13,12 @@ const getRandomValue = <T extends object>(collection: T) => {
   return Object.values(collection)[random];
 };
 
+const getRandomKey = <T extends object>(collection: T) => {
+  const length = Object.keys(collection).length;
+  const random = getRandomInt(length);
+  return Object.keys(collection)[random];
+};
+
 const throwDice = (size: number, amount: number) => {
   let sum = 0;
   for (let i = 1; i <= amount; i++) {
@@ -80,7 +86,7 @@ export const useGenerate = () => {
   const generate = () => {
     const race = getRandomValue(RACES);
     const heroClass = getRandomValue(CLASSES);
-    const alignment = getRandomValue(Alignment);
+    const alignment = getRandomKey(Alignment);
     const background = getRandomValue(Background);
     const name = getName(race);
 

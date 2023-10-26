@@ -1,8 +1,9 @@
 "use client";
-import { useController, useForm } from "react-hook-form";
+import { useController, useForm, useWatch } from "react-hook-form";
 import { useGenerate } from "../hooks/useGenerate";
-import { Alignment, STATS } from "../consts/consts";
-import ReactSelect, { Options } from "react-select";
+import { Alignment, CLASSES, HEALTH_DICE, STATS } from "../consts/consts";
+import ReactSelect from "react-select";
+import { SelectOption } from "../types/types";
 
 const getStatModifier = (value: number) => {
   if (value) {
@@ -11,24 +12,30 @@ const getStatModifier = (value: number) => {
   }
 }
 
-const getSelectOptions = <T extends object>(collection: T) => (
-  Object.entries(collection).map(([key, value]) => ({
-    value: key,
-    label: value
-  }))
-)
+const getHealthPoints = (heroClass: CLASSES, constitution: number) => {
+  return HEALTH_DICE[heroClass] + Number(getStatModifier(constitution));
+}
+
+const getSelectOptions = <T extends object>(collection: T): Array<SelectOption> => Object.entries(collection).map(([key, value]) => ({ id: key, label: value }))
 
 export const HomePage = () => {
   const { handleSubmit, register, watch, reset, control } = useForm();
   const generate = useGenerate();
 
   const { field: alignment } = useController({ name: "alignment", control })
+  const fieldValues = useWatch({ control })
 
   const onSubmit = () => { };
   const onGenerate = () => {
     const character = generate();
     reset(character);
   };
+
+  const onAlignmentChange = (newValue: SelectOption | null) => alignment.onChange(newValue?.id)
+
+  const alignmentOptions = getSelectOptions(Alignment)
+
+  const hp = getHealthPoints(fieldValues["class"], fieldValues["constitution"])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -48,7 +55,7 @@ export const HomePage = () => {
         </label>
         <label>
           Мировоззрение
-          <ReactSelect className="w-56 " options={getSelectOptions(Alignment)} value={alignment.value} onChange={alignment.onChange} />
+          <ReactSelect className="w-56" options={alignmentOptions} value={alignmentOptions.find(option => option.id === alignment.value)} onChange={onAlignmentChange} />
         </label>
         <label>
           Предыстория
@@ -88,6 +95,12 @@ export const HomePage = () => {
             {getStatModifier(watch(STATS.Charisma))}
           </label>
         </div>
+        {!!hp &&
+          (<div>
+            <label>HP</label>
+            {getHealthPoints(fieldValues["class"], fieldValues["constitution"])}
+          </div>
+          )}
         <div>
           <label>
             Черта характера

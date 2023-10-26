@@ -51,4 +51,20 @@ export const MAIN_STATS = {
   [CLASSES.Wizard]: STATS.Intelligence,
 };
 
+export const HEALTH_DICE = {
+  [CLASSES.Artificer]: 8,
+  [CLASSES.Barbarian]: 12,
+  [CLASSES.Bard]: 8,
+  [CLASSES.Cleric]: 8,
+  [CLASSES.Druid]: 8,
+  [CLASSES.Monk]: 8,
+  [CLASSES.Paladin]: 10,
+  [CLASSES.Ranger]: 10,
+  [CLASSES.Rogue]: 8,
+  [CLASSES.Sorcerer]: 6,
+  [CLASSES.Warlock]: 8,
+  [CLASSES.Warrior]: 10,
+  [CLASSES.Wizard]: 6,
+}
+
 
